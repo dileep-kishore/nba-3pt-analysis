@@ -1,0 +1,24 @@
+Team,Age of Player at the start of February 1st of that season.,"Pythagorean wins, i.e., expected wins based on points scored and allowed","Pythagorean losses, i.e., expected losses based on points scored and allowed",Margin of Victory,Strength of Schedule,Simple Rating System,Offensive Rating,Defensive Rating,Pace Factor,Free Throw Attempt Rate,3-Point Attempt Rate,True Shooting Percentage,Effective Field Goal Percentage,Turnover Percentage,Offensive Rebound Percentage,Free Throws Per Field Goal Attempt,Opponent Effective Field Goal Percentage,Opponent Turnover Percentage,Defensive Rebound Percentage,Opponent Free Throws Per Field Goal Attempt,Arena
+Philadelphia 76ers,26.7,60,22,7.67,-0.14,7.53,108.3,100.9,102.7,.367,.015,.549,.501,16.3,37.1,.273,.464,15.8,66.2,.217,The Spectrum
+Boston Celtics,27.3,55,27,5.35,-0.01,5.34,106.9,101.8,104.0,.311,.025,.536,.494,15.2,34.7,.229,.473,16.0,68.1,.236,Boston Garden
+Los Angeles Lakers,26.9,55,27,5.55,-0.49,5.06,110.5,105.2,103.8,.270,.013,.561,.528,15.9,36.3,.199,.494,15.5,65.3,.191,The Forum
+Phoenix Suns,26.6,54,28,5.06,-0.45,4.61,105.1,100.1,101.6,.306,.022,.540,.499,16.0,32.0,.227,.458,15.9,67.5,.235,Arizona Veterans Memorial Coliseum
+Milwaukee Bucks,28.1,53,29,4.40,-0.08,4.32,105.8,101.4,100.0,.322,.024,.537,.491,15.1,31.8,.243,.459,15.5,65.5,.228,MECCA Arena
+San Antonio Spurs,27.2,50,32,3.66,-0.56,3.10,110.1,106.6,103.3,.336,.042,.556,.510,15.1,35.3,.257,.489,14.4,69.1,.228,HemisFair Arena
+Seattle SuperSonics,27.4,49,33,3.21,-0.33,2.88,105.9,102.8,103.2,.338,.019,.539,.496,15.5,32.5,.247,.464,14.3,66.2,.210,King County Domed Stadium
+New Jersey Nets,25.2,49,33,2.77,0.01,2.77,101.6,98.9,104.0,.322,.021,.532,.494,18.7,36.8,.227,.481,18.9,68.8,.251,Brendan Byrne Arena
+New York Knicks,26.5,48,34,2.45,0.13,2.58,102.4,99.9,97.0,.336,.019,.526,.484,16.2,31.6,.239,.478,18.1,67.8,.257,Madison Square Garden (IV)
+Portland Trail Blazers,25.5,47,35,2.13,-0.25,1.88,106.0,103.9,101.0,.353,.021,.535,.488,15.4,33.3,.260,.490,16.0,67.9,.218,Memorial Coliseum
+Kansas City Kings,24.5,45,37,1.45,-0.41,1.04,106.2,104.9,106.6,.338,.029,.542,.500,16.4,34.3,.246,.490,16.8,65.8,.291,Kemper Arena
+Denver Nuggets,27.2,42,40,0.62,-0.36,0.27,109.7,109.1,112.1,.337,.016,.550,.495,14.0,31.0,.272,.509,15.1,64.8,.220,McNichols Sports Arena
+Washington Bullets,25.8,41,41,-0.13,0.33,0.20,99.1,99.3,99.4,.292,.034,.511,.473,16.6,30.4,.206,.471,16.2,68.6,.214,Capital Centre
+Detroit Pistons,24.6,40,42,-0.40,0.24,-0.17,105.4,105.8,105.8,.340,.036,.529,.481,15.1,33.6,.253,.496,15.4,66.2,.214,Pontiac Silverdome
+Dallas Mavericks,24.2,40,42,-0.41,-0.29,-0.70,109.4,109.8,102.8,.326,.025,.535,.489,13.5,34.8,.245,.506,14.0,66.2,.228,Reunion Arena
+Atlanta Hawks,26.6,38,44,-0.95,0.23,-0.72,102.2,103.2,98.9,.295,.026,.516,.472,15.0,30.7,.222,.473,15.2,65.1,.223,Omni Coliseum
+Golden State Warriors,24.7,32,50,-3.62,0.14,-3.48,103.9,107.4,104.0,.293,.020,.526,.485,15.9,33.9,.216,.513,16.9,64.6,.241,Oakland-Alameda County Coliseum Arena
+Utah Jazz,25.7,30,52,-4.20,-0.03,-4.22,101.2,105.1,107.3,.332,.025,.531,.483,16.7,29.0,.251,.481,15.2,63.9,.208,Salt Palace
+Chicago Bulls,24.5,29,53,-4.89,0.48,-4.41,103.4,108.0,106.1,.365,.028,.532,.483,16.9,34.0,.269,.498,14.3,67.9,.237,Chicago Stadium
+San Diego Clippers,24.8,29,53,-4.83,0.22,-4.61,104.7,109.3,103.0,.288,.034,.518,.479,15.7,37.1,.208,.531,17.6,65.8,.284,San Diego Sports Arena
+Indiana Pacers,24.9,27,55,-5.85,0.49,-5.36,103.8,109.4,103.9,.247,.031,.520,.483,15.2,33.6,.187,.520,16.4,65.5,.249,Market Square Arena
+Cleveland Cavaliers,26.4,22,60,-7.44,0.66,-6.78,99.2,106.8,97.6,.283,.017,.506,.467,16.4,33.0,.204,.492,13.8,71.3,.258,Coliseum at Richfield
+Houston Rockets,29.0,14,68,-11.60,0.48,-11.12,97.0,108.3,102.2,.260,.036,.491,.453,15.9,30.8,.188,.505,15.4,65.4,.246,The Summit

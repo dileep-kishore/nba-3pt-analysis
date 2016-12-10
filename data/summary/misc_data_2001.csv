@@ -1,0 +1,30 @@
+Team,Age of Player at the start of February 1st of that season.,"Pythagorean wins, i.e., expected wins based on points scored and allowed","Pythagorean losses, i.e., expected losses based on points scored and allowed",Margin of Victory,Strength of Schedule,Simple Rating System,Offensive Rating,Defensive Rating,Pace Factor,Free Throw Attempt Rate,3-Point Attempt Rate,True Shooting Percentage,Effective Field Goal Percentage,Turnover Percentage,Offensive Rebound Percentage,Free Throws Per Field Goal Attempt,Opponent Effective Field Goal Percentage,Opponent Turnover Percentage,Defensive Rebound Percentage,Opponent Free Throws Per Field Goal Attempt,Arena
+San Antonio Spurs,29.5,63,19,7.76,0.16,7.92,106.6,98.0,89.6,.374,.175,.541,.496,13.6,27.1,.267,.444,12.9,73.7,.182,Alamodome
+Sacramento Kings,27.1,57,25,5.82,0.25,6.07,105.6,99.6,94.4,.298,.194,.529,.484,13.4,27.2,.230,.460,14.5,70.7,.181,ARCO Arena (II)
+Utah Jazz,32.0,55,27,4.70,0.31,5.00,107.6,102.4,89.8,.363,.135,.546,.497,15.1,30.2,.273,.473,15.6,73.2,.301,Delta Center
+Dallas Mavericks,26.6,53,29,4.28,0.32,4.61,107.1,102.6,93.2,.291,.202,.544,.498,13.1,24.1,.231,.467,14.2,70.7,.244,Reunion Arena
+Portland Trail Blazers,30.1,53,29,4.20,0.33,4.52,106.5,101.8,89.1,.296,.165,.539,.497,14.8,30.0,.225,.470,14.3,72.4,.223,Rose Garden Arena
+Los Angeles Lakers,29.2,51,31,3.38,0.37,3.74,108.4,104.8,91.7,.349,.191,.535,.498,13.3,31.1,.238,.468,12.2,72.5,.234,STAPLES Center
+Philadelphia 76ers,28.2,54,28,4.28,-0.65,3.64,103.6,98.9,90.6,.351,.124,.518,.468,14.7,31.2,.262,.460,14.5,72.5,.186,First Union Center
+Milwaukee Bucks,28.2,52,30,3.88,-0.74,3.14,108.8,104.6,92.1,.276,.218,.542,.499,12.8,28.1,.217,.473,14.4,71.1,.253,Bradley Center
+Houston Rockets,26.7,48,34,2.29,0.42,2.71,106.7,104.2,90.4,.321,.217,.538,.492,14.0,27.5,.244,.475,12.6,71.9,.206,Compaq Center
+Phoenix Suns,28.6,48,34,2.21,0.42,2.63,100.3,98.0,93.1,.292,.156,.506,.460,14.1,27.3,.221,.460,16.3,73.7,.252,America West Arena
+New York Knicks,29.8,50,32,2.63,-0.65,1.98,101.2,98.2,86.7,.279,.180,.523,.476,14.6,24.2,.222,.453,14.7,74.3,.240,Madison Square Garden (IV)
+Minnesota Timberwolves,27.4,45,37,1.35,0.46,1.81,105.2,103.7,91.8,.253,.131,.523,.482,13.0,28.6,.199,.478,14.2,71.9,.238,Target Center
+Miami Heat,30.9,48,34,2.29,-0.57,1.73,101.1,98.5,87.1,.299,.221,.515,.469,13.7,24.3,.227,.460,15.3,72.7,.214,AmericanAirlines Arena
+Toronto Raptors,29.9,48,34,2.26,-0.57,1.69,105.9,103.4,90.9,.285,.167,.510,.468,12.1,30.8,.213,.476,13.3,73.2,.212,Air Canada Centre
+Charlotte Hornets,28.2,48,34,2.10,-0.65,1.45,101.8,99.5,89.4,.330,.151,.506,.457,13.7,29.8,.246,.456,14.1,74.5,.222,Charlotte Coliseum
+Seattle SuperSonics,27.9,41,41,0.02,0.52,0.55,105.6,105.6,91.6,.299,.176,.530,.491,14.3,29.1,.219,.488,13.9,69.8,.199,KeyArena at Seattle Center
+Orlando Magic,26.0,44,38,0.99,-0.60,0.39,103.2,102.1,93.2,.301,.196,.513,.474,13.8,29.1,.215,.464,15.6,69.8,.290,TD Waterhouse Centre
+Indiana Pacers,27.7,40,42,-0.20,-0.57,-0.77,102.0,102.2,89.4,.312,.180,.519,.471,14.5,27.0,.239,.452,12.8,71.4,.235,Conseco Fieldhouse
+Denver Nuggets,27.9,34,48,-2.46,0.64,-1.83,103.7,106.3,92.6,.286,.210,.511,.470,12.8,28.3,.211,.476,12.1,71.8,.223,Pepsi Center
+Detroit Pistons,27.1,36,46,-1.70,-0.39,-2.08,100.0,101.8,94.7,.325,.162,.498,.453,14.2,29.3,.234,.466,14.0,72.2,.233,The Palace of Auburn Hills
+Los Angeles Clippers,24.3,32,50,-2.89,0.66,-2.23,101.3,104.5,89.6,.319,.164,.514,.476,14.9,28.3,.221,.466,12.0,71.1,.217,STAPLES Center
+Boston Celtics,25.9,35,47,-2.13,-0.26,-2.40,101.4,103.7,92.6,.338,.252,.521,.473,14.7,25.3,.250,.493,16.0,72.7,.256,FleetCenter
+Cleveland Cavaliers,26.9,28,54,-4.24,-0.23,-4.48,100.3,104.9,91.2,.312,.101,.509,.459,15.4,29.7,.239,.477,14.1,71.1,.248,Gund Arena
+Vancouver Grizzlies,26.2,25,57,-5.73,0.79,-4.94,99.6,105.8,91.7,.289,.145,.510,.464,14.9,26.1,.223,.491,13.8,69.8,.194,General Motors Place
+New Jersey Nets,27.5,26,56,-5.05,-0.25,-5.30,100.0,105.5,91.8,.328,.165,.504,.452,13.9,25.7,.249,.488,14.9,70.0,.258,Continental Airlines Arena
+Atlanta Hawks,26.1,26,56,-5.21,-0.34,-5.55,98.7,104.3,91.9,.272,.140,.500,.456,15.5,28.9,.206,.472,13.8,70.8,.249,Philips Arena
+Washington Wizards,27.0,23,59,-6.67,-0.08,-6.75,100.6,107.8,92.7,.348,.131,.514,.460,15.7,29.7,.264,.503,14.1,71.8,.236,MCI Center
+Golden State Warriors,26.6,17,65,-9.05,0.94,-8.11,97.8,107.4,94.1,.282,.134,.470,.429,13.9,33.3,.199,.504,15.0,69.7,.227,The Arena in Oakland
+Chicago Bulls,23.2,16,66,-9.10,0.01,-9.09,97.2,107.3,89.3,.298,.148,.495,.450,15.1,26.6,.220,.499,14.3,70.3,.254,United Center

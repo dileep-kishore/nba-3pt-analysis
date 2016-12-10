@@ -1,0 +1,30 @@
+Team,Age of Player at the start of February 1st of that season.,"Pythagorean wins, i.e., expected wins based on points scored and allowed","Pythagorean losses, i.e., expected losses based on points scored and allowed",Margin of Victory,Strength of Schedule,Simple Rating System,Offensive Rating,Defensive Rating,Pace Factor,Free Throw Attempt Rate,3-Point Attempt Rate,True Shooting Percentage,Effective Field Goal Percentage,Turnover Percentage,Offensive Rebound Percentage,Free Throws Per Field Goal Attempt,Opponent Effective Field Goal Percentage,Opponent Turnover Percentage,Defensive Rebound Percentage,Opponent Free Throws Per Field Goal Attempt,Arena
+Chicago Bulls,29.9,70,12,12.24,-0.44,11.80,115.2,101.8,91.1,.291,.196,.555,.517,13.1,36.9,.217,.482,16.1,71.1,.222,United Center
+Seattle SuperSonics,29.6,61,21,7.79,-0.40,7.40,110.3,102.1,93.8,.379,.249,.574,.526,16.2,29.7,.288,.479,16.7,69.5,.252,KeyArena at Seattle Center
+Utah Jazz,29.5,59,23,6.59,-0.34,6.25,113.3,106.1,90.0,.359,.158,.566,.517,14.1,31.6,.276,.489,15.1,71.7,.295,Delta Center
+San Antonio Spurs,29.4,58,24,6.30,-0.33,5.98,110.2,103.5,93.3,.342,.200,.558,.516,13.6,27.5,.252,.472,13.9,70.0,.216,Alamodome
+Orlando Magic,27.7,56,26,5.56,-0.16,5.40,112.9,106.9,91.8,.336,.248,.562,.529,13.2,29.0,.232,.491,14.0,68.8,.223,Orlando Arena
+Los Angeles Lakers,27.1,53,29,4.45,-0.24,4.21,111.4,106.6,92.4,.306,.203,.555,.515,13.3,30.1,.228,.491,14.9,66.8,.205,Great Western Forum
+Indiana Pacers,29.4,50,32,3.24,-0.14,3.11,110.8,107.2,89.3,.389,.157,.560,.509,15.5,33.0,.294,.491,14.7,69.3,.271,Market Square Arena
+Cleveland Cavaliers,27.5,49,33,2.59,-0.09,2.49,109.9,106.7,82.3,.296,.264,.551,.510,13.7,28.6,.226,.506,16.3,70.2,.242,Gund Arena
+Detroit Pistons,26.8,49,33,2.50,-0.05,2.45,107.9,105.1,87.7,.360,.221,.551,.504,14.6,28.0,.271,.483,13.7,71.7,.229,The Palace of Auburn Hills
+New York Knicks,30.4,48,34,2.32,-0.08,2.24,106.0,103.5,91.0,.306,.201,.550,.509,14.9,25.5,.232,.476,14.8,71.1,.251,Madison Square Garden (IV)
+Portland Trail Blazers,28.1,48,34,2.35,-0.14,2.21,106.0,103.5,92.6,.347,.203,.528,.494,15.2,33.4,.230,.478,13.5,73.4,.236,Rose Garden Arena
+Houston Rockets,29.0,46,36,1.74,-0.12,1.63,109.3,107.4,93.2,.317,.265,.555,.512,14.1,26.9,.243,.495,13.6,68.6,.206,The Summit
+Miami Heat,27.4,45,37,1.43,0.03,1.46,105.3,103.8,91.1,.345,.230,.541,.501,16.0,30.1,.245,.469,14.8,71.8,.298,Miami Arena
+Atlanta Hawks,28.1,45,37,1.22,0.07,1.29,109.4,108.0,89.6,.302,.239,.534,.490,14.0,34.0,.229,.512,16.3,67.1,.217,Omni Coliseum
+Washington Bullets,24.8,44,38,1.06,-0.07,0.99,108.7,107.6,93.7,.314,.183,.558,.521,15.0,28.2,.228,.489,15.0,67.8,.274,US Airways Arena
+Phoenix Suns,27.9,42,40,0.33,-0.05,0.28,110.3,110.0,93.2,.370,.147,.551,.498,13.5,29.8,.286,.511,13.3,71.4,.225,America West Arena
+Charlotte Hornets,27.8,39,43,-0.57,0.09,-0.48,111.2,111.8,91.6,.320,.230,.558,.514,14.1,29.5,.246,.529,13.9,70.3,.217,Charlotte Coliseum
+Golden State Warriors,27.0,37,45,-1.45,0.03,-1.42,108.4,109.9,93.4,.349,.179,.539,.489,14.8,33.9,.265,.510,15.2,67.2,.232,Oakland-Alameda County Coliseum Arena
+Denver Nuggets,26.8,33,49,-2.71,0.09,-2.62,105.2,108.1,92.2,.326,.172,.526,.481,14.2,30.7,.242,.492,12.8,72.7,.237,McNichols Sports Arena
+Sacramento Kings,26.6,33,49,-2.71,0.09,-2.62,106.2,109.1,93.4,.371,.184,.540,.493,16.0,32.5,.271,.498,15.1,69.0,.302,ARCO Arena (II)
+Boston Celtics,26.3,32,50,-3.40,0.03,-3.37,106.4,109.9,96.2,.329,.209,.534,.494,14.1,28.8,.235,.511,14.3,70.0,.258,FleetCenter
+Los Angeles Clippers,25.2,31,51,-3.60,0.13,-3.46,106.5,110.3,93.2,.300,.208,.544,.511,15.3,29.3,.210,.512,15.2,67.9,.282,Los Angeles Memorial Sports Arena
+New Jersey Nets,27.4,29,53,-4.23,0.09,-4.14,101.9,106.5,90.9,.332,.111,.497,.445,15.1,36.4,.248,.495,14.5,70.9,.223,Brendan Byrne Arena
+Dallas Mavericks,25.1,28,54,-4.90,0.19,-4.71,106.1,111.2,95.4,.266,.274,.507,.470,13.3,34.1,.192,.526,14.7,68.6,.222,Reunion Arena
+Milwaukee Bucks,27.5,26,56,-5.30,0.38,-4.92,105.6,111.5,90.2,.295,.163,.534,.495,15.0,29.7,.218,.520,14.1,68.4,.248,Bradley Center
+Minnesota Timberwolves,26.4,26,56,-5.35,0.22,-5.14,104.1,109.8,93.5,.357,.132,.535,.480,16.0,29.8,.277,.509,15.0,68.7,.267,Target Center
+Toronto Raptors,26.2,21,61,-7.51,0.31,-7.20,103.8,111.8,93.2,.296,.177,.536,.499,17.2,32.0,.214,.514,14.7,66.8,.272,SkyDome
+Philadelphia 76ers,26.1,16,66,-10.00,0.55,-9.45,102.2,113.0,92.2,.353,.224,.522,.474,16.0,29.4,.259,.522,14.4,65.0,.217,CoreStates Spectrum
+Vancouver Grizzlies,27.2,15,67,-9.98,0.43,-9.55,97.6,108.5,91.0,.308,.174,.500,.456,15.5,27.3,.223,.510,16.1,66.3,.241,General Motors Place

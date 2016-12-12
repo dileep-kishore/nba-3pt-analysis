@@ -1,0 +1,31 @@
+       X           BKN.NJN          NOK.NOP          LAC.SDC         VAN.MEM          WAS.WSH            CHA            OKC.SEA      
+ Min.   :1980   Min.   :0.2010   Min.   :0.3150   Min.   :0.188   Min.   :0.3070   Min.   :0.1880   Min.   :0.2950   Min.   :0.1930  
+ 1st Qu.:1989   1st Qu.:0.3010   1st Qu.:0.3443   1st Qu.:0.289   1st Qu.:0.3340   1st Qu.:0.2740   1st Qu.:0.3290   1st Qu.:0.3330  
+ Median :1998   Median :0.3310   Median :0.3625   Median :0.326   Median :0.3450   Median :0.3240   Median :0.3470   Median :0.3470  
+ Mean   :1998   Mean   :0.3138   Mean   :0.3561   Mean   :0.314   Mean   :0.3455   Mean   :0.3102   Mean   :0.3495   Mean   :0.3354  
+ 3rd Qu.:2007   3rd Qu.:0.3430   3rd Qu.:0.3685   3rd Qu.:0.352   3rd Qu.:0.3600   3rd Qu.:0.3530   3rd Qu.:0.3658   3rd Qu.:0.3640  
+ Max.   :2016   Max.   :0.3760   Max.   :0.3890   Max.   :0.376   Max.   :0.3740   Max.   :0.4070   Max.   :0.4280   Max.   :0.3990  
+                                 NA's   :23                       NA's   :16                        NA's   :11                       
+    KCK.SAC            UTA              NYK              BOS              GSW              TOR              CHI              ATL        
+ Min.   :0.2000   Min.   :0.2070   Min.   :0.2200   Min.   :0.2100   Min.   :0.2230   Min.   :0.3160   Min.   :0.1710   Min.   :0.1220  
+ 1st Qu.:0.3160   1st Qu.:0.3190   1st Qu.:0.3320   1st Qu.:0.3150   1st Qu.:0.2930   1st Qu.:0.3430   1st Qu.:0.2890   1st Qu.:0.3060  
+ Median :0.3490   Median :0.3360   Median :0.3460   Median :0.3490   Median :0.3370   Median :0.3630   Median :0.3480   Median :0.3320  
+ Mean   :0.3303   Mean   :0.3318   Mean   :0.3347   Mean   :0.3336   Mean   :0.3303   Mean   :0.3587   Mean   :0.3238   Mean   :0.3156  
+ 3rd Qu.:0.3670   3rd Qu.:0.3610   3rd Qu.:0.3620   3rd Qu.:0.3650   3rd Qu.:0.3560   3rd Qu.:0.3710   3rd Qu.:0.3660   3rd Qu.:0.3560  
+ Max.   :0.4010   Max.   :0.3850   Max.   :0.3830   Max.   :0.3970   Max.   :0.4160   Max.   :0.3920   Max.   :0.4030   Max.   :0.3800  
+                                                                                      NA's   :16                                        
+      DEN              HOU              MIN              DAL              MIL              MIA              PHI              PHX        
+ Min.   :0.1900   Min.   :0.1780   Min.   :0.2480   Min.   :0.2280   Min.   :0.2190   Min.   :0.2930   Min.   :0.2160   Min.   :0.2080  
+ 1st Qu.:0.3020   1st Qu.:0.3120   1st Qu.:0.3230   1st Qu.:0.3220   1st Qu.:0.3240   1st Qu.:0.3410   1st Qu.:0.2990   1st Qu.:0.3190  
+ Median :0.3320   Median :0.3460   Median :0.3390   Median :0.3460   Median :0.3450   Median :0.3545   Median :0.3200   Median :0.3430  
+ Mean   :0.3196   Mean   :0.3248   Mean   :0.3334   Mean   :0.3391   Mean   :0.3377   Mean   :0.3501   Mean   :0.3135   Mean   :0.3349  
+ 3rd Qu.:0.3430   3rd Qu.:0.3620   3rd Qu.:0.3515   3rd Qu.:0.3668   3rd Qu.:0.3630   3rd Qu.:0.3640   3rd Qu.:0.3430   3rd Qu.:0.3720  
+ Max.   :0.3880   Max.   :0.3750   Max.   :0.3780   Max.   :0.3910   Max.   :0.3830   Max.   :0.3960   Max.   :0.3790   Max.   :0.4120  
+                                   NA's   :10       NA's   :1                         NA's   :9                                         
+      SAS             DET              CLE             ORL              IND              POR              LAL        
+ Min.   :0.176   Min.   :0.1550   Min.   :0.182   Min.   :0.2950   Min.   :0.1610   Min.   :0.1690   Min.   :0.1040  
+ 1st Qu.:0.292   1st Qu.:0.3000   1st Qu.:0.332   1st Qu.:0.3425   1st Qu.:0.3280   1st Qu.:0.3090   1st Qu.:0.3040  
+ Median :0.354   Median :0.3440   Median :0.352   Median :0.3560   Median :0.3480   Median :0.3460   Median :0.3440  
+ Mean   :0.332   Mean   :0.3217   Mean   :0.337   Mean   :0.3534   Mean   :0.3305   Mean   :0.3242   Mean   :0.3178  
+ 3rd Qu.:0.375   3rd Qu.:0.3560   3rd Qu.:0.373   3rd Qu.:0.3715   3rd Qu.:0.3680   3rd Qu.:0.3610   3rd Qu.:0.3540  
+ Max.   :0.407   Max.   :0.4040   Max.   :0.407   Max.   :0.3860   Max.   :0.3920   Max.   :0.3830   Max.   :0.3810  

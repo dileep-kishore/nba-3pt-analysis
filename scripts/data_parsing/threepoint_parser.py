@@ -2,7 +2,7 @@
 # @Author: dileep
 # @Date:   2016-12-05T02:14:47-05:00
 # @Last modified by:   dileep
-# @Last modified time: 2016-12-06T02:34:39-05:00
+# @Last modified time: December 10, 2016 5:45:27 PM
 
 import os
 import sys
@@ -19,6 +19,7 @@ def get_3p_data(input_dir, stat_type, output_dir, year_range='all'):
         fname = f_prefix + str(year) + '.csv'
         table = pd.read_csv(fname)
         threeptdata = list(table['3-Point Field Goal Percentage'])
+        # threeptdata = list(table['3-Point Field Goal Attempts'])
         teams = list(table['Team'])
         for i, team in enumerate(teams):
             if team in team_3p_dict.keys():
@@ -35,6 +36,7 @@ def get_3p_data(input_dir, stat_type, output_dir, year_range='all'):
     team_3p_data = pd.DataFrame(team_3p_dict)
     team_3p_data.index = year_range
     output_file = output_dir + 'threepointpercent.csv'
+    # output_file = output_dir + 'threepointattempts.csv'
     team_3p_data.to_csv(output_file)
     return team_3p_data
 
@@ -77,7 +79,8 @@ def get_final_dataframe(team_3p_data, common_teams, abbrev_dict, output_dir):
         if team not in all_common_teams:
             final_dataframe[abbrev_dict[team]] = list(team_3p_data[team])
     final_dataframe.index = team_3p_data.index
-    output_file = output_dir + 'final_dataframe.csv'
+    output_file = output_dir + 'comb_3pper.csv'
+    # output_file = output_dir + 'comb_3pattempt.csv'
     final_dataframe.to_csv(output_file)
     return final_dataframe
 

@@ -1,0 +1,32 @@
+       X           BKN.NJN         NOK.NOP         LAC.SDC         VAN.MEM         WAS.WSH           CHA           OKC.SEA         KCK.SAC     
+ Min.   :1980   Min.   : 1.70   Min.   :10.80   Min.   : 1.60   Min.   : 9.10   Min.   : 1.70   Min.   : 4.50   Min.   : 1.40   Min.   : 1.40  
+ 1st Qu.:1989   1st Qu.: 6.00   1st Qu.:15.07   1st Qu.: 5.00   1st Qu.:12.40   1st Qu.: 3.50   1st Qu.:11.05   1st Qu.: 7.40   1st Qu.: 7.00  
+ Median :1998   Median :13.20   Median :17.00   Median :12.50   Median :13.80   Median :10.90   Median :14.70   Median :15.00   Median :14.10  
+ Mean   :1998   Mean   :11.78   Mean   :16.92   Mean   :11.67   Mean   :14.47   Mean   :10.74   Mean   :13.77   Mean   :12.98   Mean   :12.09  
+ 3rd Qu.:2007   3rd Qu.:16.80   3rd Qu.:19.27   3rd Qu.:16.80   3rd Qu.:16.00   3rd Qu.:15.50   3rd Qu.:17.05   3rd Qu.:19.40   3rd Qu.:17.20  
+ Max.   :2016   Max.   :23.40   Max.   :23.80   Max.   :26.90   Max.   :21.70   Max.   :24.20   Max.   :29.40   Max.   :23.70   Max.   :22.40  
+                                NA's   :23                      NA's   :16                      NA's   :11                                     
+      ORL             POR             CHI            NYK             DET             SAS             DEN             GSW             LAL       
+ Min.   : 4.80   Min.   : 1.60   Min.   : 1.4   Min.   : 1.60   Min.   : 1.00   Min.   : 1.00   Min.   : 1.50   Min.   : 1.50   Min.   : 1.10  
+ 1st Qu.:11.15   1st Qu.: 6.90   1st Qu.: 5.2   1st Qu.: 6.90   1st Qu.: 4.90   1st Qu.: 3.80   1st Qu.: 5.50   1st Qu.: 7.70   1st Qu.: 5.80  
+ Median :17.20   Median :13.40   Median :12.2   Median :13.60   Median :13.20   Median :13.30   Median :12.90   Median :12.10   Median :15.50  
+ Mean   :16.81   Mean   :12.55   Mean   :11.0   Mean   :13.27   Mean   :11.59   Mean   :11.66   Mean   :12.36   Mean   :13.57   Mean   :13.16  
+ 3rd Qu.:20.25   3rd Qu.:16.90   3rd Qu.:15.9   3rd Qu.:17.70   3rd Qu.:16.50   3rd Qu.:18.50   3rd Qu.:18.40   3rd Qu.:20.50   3rd Qu.:18.50  
+ Max.   :27.30   Max.   :28.50   Max.   :22.3   Max.   :28.90   Max.   :26.20   Max.   :22.50   Max.   :24.80   Max.   :31.60   Max.   :24.80  
+ NA's   :10                                                                                                                                    
+      MIL             PHX             ATL             IND             MIA             BOS             MIN             DAL              CLE       
+ Min.   : 1.60   Min.   : 1.90   Min.   : 0.90   Min.   : 1.70   Min.   : 3.60   Min.   : 2.20   Min.   : 3.60   Min.   : 2.000   Min.   : 1.50  
+ 1st Qu.: 7.00   1st Qu.: 5.30   1st Qu.: 5.00   1st Qu.: 6.10   1st Qu.:13.10   1st Qu.: 4.80   1st Qu.: 9.25   1st Qu.: 7.825   1st Qu.: 5.80  
+ Median :12.40   Median :14.00   Median :12.70   Median :13.60   Median :16.60   Median :15.20   Median :12.40   Median :15.050   Median :10.70  
+ Mean   :12.06   Mean   :13.41   Mean   :12.27   Mean   :12.61   Mean   :15.36   Mean   :12.58   Mean   :12.36   Mean   :13.878   Mean   :11.78  
+ 3rd Qu.:17.20   3rd Qu.:19.60   3rd Qu.:17.70   3rd Qu.:18.70   3rd Qu.:18.20   3rd Qu.:17.50   3rd Qu.:15.15   3rd Qu.:19.900   3rd Qu.:18.20  
+ Max.   :22.10   Max.   :25.80   Max.   :28.40   Max.   :24.60   Max.   :22.70   Max.   :26.30   Max.   :21.60   Max.   :28.600   Max.   :29.60  
+                                                                 NA's   :9                       NA's   :10      NA's   :1                       
+      UTA              HOU             PHI             TOR      
+ Min.   : 1.200   Min.   : 1.40   Min.   : 1.00   Min.   :13.2  
+ 1st Qu.: 5.000   1st Qu.: 6.00   1st Qu.: 6.60   1st Qu.:14.2  
+ Median : 9.300   Median :17.20   Median : 9.90   Median :16.3  
+ Mean   : 9.349   Mean   :15.34   Mean   :10.58   Mean   :17.3  
+ 3rd Qu.:12.800   3rd Qu.:21.40   3rd Qu.:14.60   3rd Qu.:19.8  
+ Max.   :23.900   Max.   :32.70   Max.   :27.50   Max.   :25.1  
+                                                  NA's   :16  

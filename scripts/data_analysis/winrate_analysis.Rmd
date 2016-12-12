@@ -1,0 +1,41 @@
+---
+title: "Three pointer win-rate analysis"
+output: html_notebook
+---
+
+*Winrate*
+```{r}
+winrate <- read.csv('../../results/win_data/comb_winrate.csv')
+year_range <- winrate$X
+winrate <- subset(winrate, select=-c(X))
+summary(winrate)
+```
+
+*Threepointer data*
+```{r}
+percent3p <- read.csv('../../results/team_data/comb_3pper.csv')
+year_range <- percent3p$X
+percent3p <- subset(percent3p, select=-c(X))
+summary(percent3p)
+```
+
+*Linear modeling*
+```{r}
+get_lmmodel <- function(start_yr, end_yr)
+{
+    winrate.list <- c()
+    percent.list <- c()
+    xy.list <- setNames(split(percent3p, seq(nrow(percent3p))), year_range)
+    yz.list <- setNames(split(winrate, seq(nrow(winrate))), year_range)
+    # Change the year range to get models for different time ranges
+    yrs <- seq(match(start_yr, year_range), match(end_yr, year_range))
+    for (yr_ind in yrs)
+    {
+        percent.list <- c(percent.list, as.numeric(xy.list[[yr_ind]]))
+        winrate.list <- c(winrate.list, as.numeric(yz.list[[yr_ind]]))
+    }
+    model <- lm(winrate.list ~ percent.list)
+}
+model <- get_lmmodel(1980, 1995)
+summary(model)
+```

@@ -1,12 +1,10 @@
+#!/usr/bin/env python3
 # @Author: Dileep Kishore <dileep>
 # @Date:   2016-12-05T01:10:26-05:00
 # @Filename: web_scraper.py
 # @Last modified by:   dileep
-# @Last modified time: 2016-12-05T02:28:41-05:00
+# @Last modified time: December 11, 2016 9:29:39 PM
 
-
-
-#!/usr/bin/env python3
 """Script to scrape/parse www.basketball-reference.com
     Types of data we wish to get:
         a. Team 3pt shooting
@@ -115,6 +113,38 @@ def pergame_parser(html_data, id_val, year):
     # table.to_csv(id_val+str(year)+'.csv', sep=',', index=False)
     return table
 
+def win_parser(html_data, id_val, year):
+    div_id = ['all_'+id_val+'E', 'all_'+id_val+'W']
+    tab_id = [id_val+'E', id_val+'W']
+    for ind in range(2):
+        for tag in html_data.find_all("div", id=div_id[ind]):
+            table_stuff = tag.find_all("table", id=tab_id[ind])
+            table_head = table_stuff.find('thead')
+            rows = table_head.find_all('tr')
+            header = []
+            for row in rows:
+                elems = row.find_all('th')
+                for elem in elems:
+                    header.append(elem.find(text=True))
+            table_body = table_stuff.find_all("tbody")
+            data = []
+            for table_elem in table_body:
+                rows = table_elem.find_all('tr')
+                data_elem = []
+                for row in rows:
+                    data_row = []
+                    elems = row.find_all('td')
+                    for elem in elems:
+                        data_row.append(elem.find(text=True))
+                    data_elem.append(data_row)
+                data += data_elem
+                new_data = np.array(data)
+            temp_table = pd.DataFrame(data, columns=header[1:])
+            table_list.append(temp_table)
+    table = pd.concat(table_list)
+    print(table)
+    return table
+
 def webpage_parser(html_data, page_type, year, data_dir):
     """Call appropriate parsers to parse the webpage
     """
@@ -124,6 +154,9 @@ def webpage_parser(html_data, page_type, year, data_dir):
     if page_type == 'summary':
         if not os.path.exists(type_dir):
             call('mkdir -p ' + type_dir, shell=True)
+        win_data = win_parser(html_soup, 'confs_standings_', year)
+        win_data_file = type_dir + 'win_data_' + str(year) + '.csv'
+        win_data.to_csv(win_data_file, sep=',', index=False)
         team_data = summary_parser(html_soup, 'all_team-stats-per_game', year)
         team_data_file = type_dir + 'team_data_' + str(year) + '.csv'
         team_data.to_csv(team_data_file, sep=',', index=False)
@@ -136,7 +169,7 @@ def webpage_parser(html_data, page_type, year, data_dir):
         shooting_data = summary_parser(html_soup, 'all_team_shooting', year)
         shooting_data_file = type_dir + 'shooting_data_' + str(year) + '.csv'
         shooting_data.to_csv(shooting_data_file, sep=',', index=False)
-        data_dict['summary'] = [team_data, opponent_data, misc_data, shooting_data]
+        data_dict['summary'] = [win_data, team_data, opponent_data, misc_data, shooting_data]
     if page_type == 'per_game':
         player_data = pergame_parser(html_soup, 'all_per_game_stats', year)
         data_dict['per_game'] = [player_data]

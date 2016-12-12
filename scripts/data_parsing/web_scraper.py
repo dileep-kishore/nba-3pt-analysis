@@ -3,7 +3,7 @@
 # @Date:   2016-12-05T01:10:26-05:00
 # @Filename: web_scraper.py
 # @Last modified by:   dileep
-# @Last modified time: December 11, 2016 9:29:39 PM
+# @Last modified time: December 11, 2016 11:55:15 PM
 
 """Script to scrape/parse www.basketball-reference.com
     Types of data we wish to get:
@@ -114,11 +114,12 @@ def pergame_parser(html_data, id_val, year):
     return table
 
 def win_parser(html_data, id_val, year):
+    table_list = []
     div_id = ['all_'+id_val+'E', 'all_'+id_val+'W']
     tab_id = [id_val+'E', id_val+'W']
     for ind in range(2):
         for tag in html_data.find_all("div", id=div_id[ind]):
-            table_stuff = tag.find_all("table", id=tab_id[ind])
+            table_stuff = tag.find_all("table", id=tab_id[ind])[0]
             table_head = table_stuff.find('thead')
             rows = table_head.find_all('tr')
             header = []
@@ -134,15 +135,19 @@ def win_parser(html_data, id_val, year):
                 for row in rows:
                     data_row = []
                     elems = row.find_all('td')
+                    tname = row.find_all('th')[0].find_all('a', href=True)
+                    if tname != []:
+                        data_row.append(tname[0].find(text=True))
                     for elem in elems:
                         data_row.append(elem.find(text=True))
                     data_elem.append(data_row)
                 data += data_elem
                 new_data = np.array(data)
-            temp_table = pd.DataFrame(data, columns=header[1:])
+            new_data = [dat for dat in new_data if dat != []]
+            header[0] = 'Team'
+            temp_table = pd.DataFrame(data, columns=header).dropna(how='all')
             table_list.append(temp_table)
     table = pd.concat(table_list)
-    print(table)
     return table
 
 def webpage_parser(html_data, page_type, year, data_dir):
@@ -154,7 +159,7 @@ def webpage_parser(html_data, page_type, year, data_dir):
     if page_type == 'summary':
         if not os.path.exists(type_dir):
             call('mkdir -p ' + type_dir, shell=True)
-        win_data = win_parser(html_soup, 'confs_standings_', year)
+        win_data = win_parser(html_soup, 'divs_standings_', year)
         win_data_file = type_dir + 'win_data_' + str(year) + '.csv'
         win_data.to_csv(win_data_file, sep=',', index=False)
         team_data = summary_parser(html_soup, 'all_team-stats-per_game', year)
@@ -187,7 +192,7 @@ def main(out_dir):
     return None
 
 if __name__ == '__main__':
-    results_dir = '../../data/'
+    results_dir = '../../data/summary/'
     ans = input("Do you want to delete current data? Y/N \n")
     if ans.upper() == 'Y':
         call('rm -rf ' + results_dir, shell=True)

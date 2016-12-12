@@ -55,4 +55,8 @@ model1$aic
 auto.arima(gsw_per) # wasn't first choice because didn't have enough data points
 # arima(0,1,0) is a random walk
 
+# Hypothesis testing
+df3 <- aggregate(. ~ X, data=rbind(threep_attempt, threep_per), FUN=prod, na.rm = FALSE)
+
+
 #Linear model fitting

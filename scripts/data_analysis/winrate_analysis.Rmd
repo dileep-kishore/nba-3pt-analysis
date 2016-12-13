@@ -3,6 +3,9 @@ title: "Three pointer win-rate analysis"
 output: html_notebook
 ---
 
+```{r, echo=FALSE, message=FALSE}
+library(randomForest)
+```
 *Winrate*
 ```{r}
 winrate <- read.csv('../../results/win_data/comb_winrate.csv')
@@ -11,7 +14,7 @@ winrate <- subset(winrate, select=-c(X))
 summary(winrate)
 ```
 
-*Threepointer data*
+*Threepointer percentage data*
 ```{r}
 percent3p <- read.csv('../../results/team_data/comb_3pper.csv')
 year_range <- percent3p$X
@@ -19,23 +22,106 @@ percent3p <- subset(percent3p, select=-c(X))
 summary(percent3p)
 ```
 
-*Linear modeling*
+*Threepointer attempts data*
 ```{r}
-get_lmmodel <- function(start_yr, end_yr)
+attempts3p <- read.csv('../../results/team_data/comb_3pattempt.csv')
+year_range <- attempts3p$X
+attempts3p <- subset(attempts3p, select=-c(X))
+summary(attempts3p)
+```
+
+*Threepointer made data*
+```{r}
+made3p <- read.csv('../../results/team_data/comb_3pmade.csv')
+year_range <- made3p$X
+made3p <- subset(made3p, select=-c(X))
+summary(made3p)
+```
+
+*Misc data*
+```{r}
+eff_fg_per <- read.csv('../../results/misc_data/comb_Effective_Field_Goal_Percentage.csv')
+ft_per_fg <- read.csv('../../results/misc_data/comb_Free_Throws_Per_Field_Goal_Attempt.csv')
+off_reb <- read.csv('../../results/misc_data/comb_Offensive_Rebound_Percentage.csv')
+turn_per <- read.csv('../../results/misc_data/comb_Turnover_Percentage.csv')
+year_range <- eff_fg_per$X
+eff_fg_per <- subset(eff_fg_per, select=-c(X))
+ft_per_fg <- subset(ft_per_fg, select=-c(X))
+off_reb <- subset(off_reb, select=-c(X))
+turn_per <- subset(turn_per, select=-c(X))
+```
+
+*Correlation between winrate and threepoint percentage in the last decades*
+```{r}
+get_lmmodel <- function(start_yr, end_yr, ind_var1, ind_var2, ind_var3, ind_var4)
 {
     winrate.list <- c()
-    percent.list <- c()
-    xy.list <- setNames(split(percent3p, seq(nrow(percent3p))), year_range)
+    indvar1.list <- c()
+    indvar2.list <- c()
+    indvar3.list <- c()
+    indvar4.list <- c()
+    xx.list <- setNames(split(ind_var1, seq(nrow(ind_var1))), year_range)
+    yy.list <- setNames(split(ind_var2, seq(nrow(ind_var2))), year_range)
+    aa.list <- setNames(split(ind_var3, seq(nrow(ind_var3))), year_range)
+    bb.list <- setNames(split(ind_var4, seq(nrow(ind_var4))), year_range)
     yz.list <- setNames(split(winrate, seq(nrow(winrate))), year_range)
     # Change the year range to get models for different time ranges
     yrs <- seq(match(start_yr, year_range), match(end_yr, year_range))
     for (yr_ind in yrs)
     {
-        percent.list <- c(percent.list, as.numeric(xy.list[[yr_ind]]))
+        indvar1.list <- c(indvar1.list, as.numeric(xx.list[[yr_ind]]))
+        indvar2.list <- c(indvar2.list, as.numeric(yy.list[[yr_ind]]))
+        indvar3.list <- c(indvar3.list, as.numeric(aa.list[[yr_ind]]))
+        indvar4.list <- c(indvar4.list, as.numeric(bb.list[[yr_ind]]))
         winrate.list <- c(winrate.list, as.numeric(yz.list[[yr_ind]]))
     }
-    model <- lm(winrate.list ~ percent.list)
+    # Check if these are in order
+    # model <- lm(winrate.list ~ indvar1.list*indvar2.list)
+    model <- lm(winrate.list ~ indvar1.list+indvar2.list+indvar3.list+indvar4.list)
 }
-model <- get_lmmodel(1980, 1995)
+model <- get_lmmodel(2005, 2016, ft_per_fg, eff_fg_per, off_reb, turn_per)
 summary(model)
+AIC(model)
+```
+
+*Random forest*
+```{r}
+set.seed(415)
+get_randforest <- function(start_yr, end_yr, ind_var1, ind_var2, ind_var3, ind_var4)
+{
+    winrate.list <- c()
+    indvar1.list <- c()
+    indvar2.list <- c()
+    indvar3.list <- c()
+    indvar4.list <- c()
+    xx.list <- setNames(split(ind_var1, seq(nrow(ind_var1))), year_range)
+    yy.list <- setNames(split(ind_var2, seq(nrow(ind_var2))), year_range)
+    aa.list <- setNames(split(ind_var3, seq(nrow(ind_var3))), year_range)
+    bb.list <- setNames(split(ind_var4, seq(nrow(ind_var4))), year_range)
+    yz.list <- setNames(split(winrate, seq(nrow(winrate))), year_range)
+    # Change the year range to get models for different time ranges
+    yrs <- seq(match(start_yr, year_range), match(end_yr, year_range))
+    for (yr_ind in yrs)
+    {
+        indvar1.list <- c(indvar1.list, as.numeric(xx.list[[yr_ind]]))
+        indvar2.list <- c(indvar2.list, as.numeric(yy.list[[yr_ind]]))
+        indvar3.list <- c(indvar3.list, as.numeric(aa.list[[yr_ind]]))
+        indvar4.list <- c(indvar4.list, as.numeric(bb.list[[yr_ind]]))
+        winrate.list <- c(winrate.list, as.numeric(yz.list[[yr_ind]]))
+    }
+    smp_size <- floor(0.8 * length(winrate.list))
+    train_ind <- sample(seq_len(nrow(winrate.list)), size=smp_size)
+    # Check if these are in order
+    # model <- lm(winrate.list ~ indvar1.list*indvar2.list)
+    model <- randomForest(winrate.list ~ indvar1.list+indvar2.list+indvar3.list+indvar4.list, importance=TRUE, ntree=1000)
+}
+model <- get_randforest(2006, 2016, ft_per_fg, eff_fg_per, off_reb, turn_per)
+```
+
+>Supposed to be on the time-series notebook
+```{r}
+gsw_made <- ts(made3p$GSW, start=1980)
+plot.ts(gsw_made)
+gsw_percent <- ts(percent3p$GSW, start=1980)
+plot.ts(gsw_percent)
 ```

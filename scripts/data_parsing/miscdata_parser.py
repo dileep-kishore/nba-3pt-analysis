@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-# @Author: dileep
-# @Date:   2016-12-05T02:14:47-05:00
+# @Author: Dileep Kishore <dileep>
+# @Date:   December 12, 2016 11:30:21 PM
+# @Filename: miscdata_parser.py
 # @Last modified by:   dileep
-# @Last modified time: December 12, 2016 11:29:55 PM
+# @Last modified time: December 13, 2016 12:00:34 AM
 
 import os
 import sys
@@ -10,37 +11,37 @@ from subprocess import call
 import pandas as pd
 import numpy as np
 
-def get_3p_data(input_dir, stat_type, output_dir, year_range='all'):
+def get_misc_data(input_dir, stat_type, output_dir, year_range='all'):
     if year_range == 'all':
-        year_range = list(range(1980, 2017))
-    f_prefix = input_dir + stat_type + '_'
-    team_3p_dict = dict()
+        year_range = list(range(1981, 2017))
+    f_prefix = input_dir + 'misc_data' + '_'
+    team_misc_dict = dict()
     for ind, year in enumerate(year_range):
         fname = f_prefix + str(year) + '.csv'
+        print(fname)
         table = pd.read_csv(fname)
         # threeptdata = list(table['3-Point Field Goal Percentage'])
-        threeptdata = list(table['3-Point Field Goals'])
+        threeptdata = list(table[stat_type])
         # threeptdata = list(table['3-Point Field Goal Attempts'])
         teams = list(table['Team'])
         for i, team in enumerate(teams):
-            if team in team_3p_dict.keys():
-                team_3p_dict[team].append(threeptdata[i])
+            if team in team_misc_dict.keys():
+                team_misc_dict[team].append(threeptdata[i])
             else:
-                team_3p_dict[team] = [threeptdata[i]]
-        for team in team_3p_dict:
+                team_misc_dict[team] = [threeptdata[i]]
+        for team in team_misc_dict:
             if not team in teams:
-                team_3p_dict[team].append(None)
-        for team in team_3p_dict:
-            if len(team_3p_dict[team]) <= ind:
-                none_list = [None for _ in range(ind+1-len(team_3p_dict[team]))]
-                team_3p_dict[team] = none_list + team_3p_dict[team]
-    team_3p_data = pd.DataFrame(team_3p_dict)
-    team_3p_data.index = year_range
-    # output_file = output_dir + 'threepointpercent.csv'
-    output_file = output_dir + 'threepointmade.csv'
-    # output_file = output_dir + 'threepointattempts.csv'
-    team_3p_data.to_csv(output_file)
-    return team_3p_data
+                team_misc_dict[team].append(None)
+        for team in team_misc_dict:
+            if len(team_misc_dict[team]) <= ind:
+                none_list = [None for _ in range(ind+1-len(team_misc_dict[team]))]
+                team_misc_dict[team] = none_list + team_misc_dict[team]
+    team_misc_data = pd.DataFrame(team_misc_dict)
+    team_misc_data.index = year_range
+    fname = '_'.join(stat_type.split(' ')) + '.csv'
+    output_file = output_dir + fname
+    team_misc_data.to_csv(output_file)
+    return team_misc_data
 
 def get_combined_teams():
     fname = 'common_teams.csv'
@@ -62,13 +63,13 @@ def get_short_teamnames():
     abbrev_dict = dict(zip(teams, abbrev))
     return abbrev_dict
 
-def get_final_dataframe(team_3p_data, common_teams, abbrev_dict, output_dir):
+def get_final_dataframe(team_misc_data, common_teams, abbrev_dict, output_dir, stat_type):
     all_common_teams = sum(common_teams, [])
     final_dataframe = pd.DataFrame()
     for team in common_teams:
         curr_teamdata = []
         for t in team:
-            curr_teamdata.append(list(team_3p_data[t]))
+            curr_teamdata.append(list(team_misc_data[t]))
         temp_list = []
         for i in range(len(curr_teamdata[0])):
             temp = [d[i] for d in curr_teamdata if not np.isnan(d[i])]
@@ -79,24 +80,23 @@ def get_final_dataframe(team_3p_data, common_teams, abbrev_dict, output_dir):
         final_dataframe[abbrev] = temp_list
     for team in abbrev_dict:
         if team not in all_common_teams:
-            final_dataframe[abbrev_dict[team]] = list(team_3p_data[team])
-    final_dataframe.index = team_3p_data.index
-    # output_file = output_dir + 'comb_3pper.csv'
-    output_file = output_dir + 'comb_3pmade.csv'
-    # output_file = output_dir + 'comb_3pattempt.csv'
+            final_dataframe[abbrev_dict[team]] = list(team_misc_data[team])
+    final_dataframe.index = team_misc_data.index
+    fname = 'comb_' + '_'.join(stat_type.split(' ')) + '.csv'
+    output_file = output_dir + fname
     final_dataframe.to_csv(output_file)
     return final_dataframe
 
 def main(data_path, data_type, results_path):
     input_dir = data_path + data_type + '/'
-    stats_type = 'team_data'
-    output_path = results_path + stats_type + '/'
+    stats_type = 'Free Throws Per Field Goal Attempt' #NOTE: This was changed
+    output_path = results_path + 'misc_data' + '/'
     if not os.path.exists(output_path):
         call('mkdir -p ' + output_path, shell=True)
-    team_3p_data = get_3p_data(input_dir, stats_type, output_path)
+    team_misc_data = get_misc_data(input_dir, stats_type, output_path)
     common_teams = get_combined_teams()
     abbrev_dict = get_short_teamnames()
-    get_final_dataframe(team_3p_data, common_teams, abbrev_dict, output_path)
+    get_final_dataframe(team_misc_data, common_teams, abbrev_dict, output_path, stats_type)
 
 if __name__ == '__main__':
     data_dir = '../../data/'

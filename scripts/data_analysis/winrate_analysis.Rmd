@@ -86,18 +86,22 @@ AIC(model)
 
 *Random forest*
 ```{r}
-set.seed(415)
-get_randforest <- function(start_yr, end_yr, ind_var1, ind_var2, ind_var3, ind_var4)
+#set.seed(415)
+get_randforest <- function(start_yr, end_yr, ind_var1, ind_var2, ind_var3, ind_var4, ind_var5, ind_var6)
 {
     winrate.list <- c()
     indvar1.list <- c()
     indvar2.list <- c()
     indvar3.list <- c()
     indvar4.list <- c()
+    indvar5.list <- c()
+    indvar6.list <- c()
     xx.list <- setNames(split(ind_var1, seq(nrow(ind_var1))), year_range)
     yy.list <- setNames(split(ind_var2, seq(nrow(ind_var2))), year_range)
     aa.list <- setNames(split(ind_var3, seq(nrow(ind_var3))), year_range)
     bb.list <- setNames(split(ind_var4, seq(nrow(ind_var4))), year_range)
+    cc.list <- setNames(split(ind_var5, seq(nrow(ind_var5))), year_range)
+    dd.list <- setNames(split(ind_var6, seq(nrow(ind_var6))), year_range)
     yz.list <- setNames(split(winrate, seq(nrow(winrate))), year_range)
     # Change the year range to get models for different time ranges
     yrs <- seq(match(start_yr, year_range), match(end_yr, year_range))
@@ -107,21 +111,46 @@ get_randforest <- function(start_yr, end_yr, ind_var1, ind_var2, ind_var3, ind_v
         indvar2.list <- c(indvar2.list, as.numeric(yy.list[[yr_ind]]))
         indvar3.list <- c(indvar3.list, as.numeric(aa.list[[yr_ind]]))
         indvar4.list <- c(indvar4.list, as.numeric(bb.list[[yr_ind]]))
+        indvar5.list <- c(indvar5.list, as.numeric(cc.list[[yr_ind]]))
+        indvar6.list <- c(indvar6.list, as.numeric(dd.list[[yr_ind]]))
         winrate.list <- c(winrate.list, as.numeric(yz.list[[yr_ind]]))
     }
     smp_size <- floor(0.8 * length(winrate.list))
-    train_ind <- sample(seq_len(nrow(winrate.list)), size=smp_size)
+    train_ind <- sample(seq_len(length(winrate.list)), size=smp_size)
+    #Training set
+    ft_per_fg <- indvar1.list[train_ind]
+    eff_fg_per <- indvar1.list[train_ind]
+    off_reb <- indvar1.list[train_ind]
+    turn_per <- indvar1.list[train_ind]
+    made3p <- indvar1.list[train_ind]
+    percent3p <- indvar1.list[train_ind]
+    winrate <- winrate.list[train_ind]
+    train_data <- data.frame(ft_per_fg=ft_per_fg, eff_fg_per=eff_fg_per, off_reb=off_reb, turn_per=turn_per, made3p=made3p, percent3p=percent3p, winrate=winrate)
+    # Testing set
+    ft_per_fg <- indvar1.list[-train_ind]
+    eff_fg_per <- indvar1.list[-train_ind]
+    off_reb <- indvar1.list[-train_ind]
+    turn_per <- indvar1.list[-train_ind]
+    made3p <- indvar1.list[-train_ind]
+    percent3p <- indvar1.list[-train_ind]
+    winrate <- winrate.list[-train_ind]
+    test_data <- data.frame(ft_per_fg=ft_per_fg, eff_fg_per=eff_fg_per, off_reb=off_reb, turn_per=turn_per, made3p=made3p, percent3p=percent3p, winrate=winrate)
     # Check if these are in order
-    # model <- lm(winrate.list ~ indvar1.list*indvar2.list)
-    model <- randomForest(winrate.list ~ indvar1.list+indvar2.list+indvar3.list+indvar4.list, importance=TRUE, ntree=1000)
+    model <- randomForest(winrate~ft_per_fg+eff_fg_per+off_reb+turn_per+made3p+percent3p, data=train_data, importance=TRUE, ntree=3000)
+    prediction <- predict(model, test_data, OOB=TRUE)
+    pred_score = mean((test_data$winrate - prediction)^2)
+    return(list('model'=model, 'train_data'=train_data, 'prediction'=pred_score))
 }
-model <- get_randforest(2006, 2016, ft_per_fg, eff_fg_per, off_reb, turn_per)
+forest_stuff <- get_randforest(2006, 2016, ft_per_fg, eff_fg_per, off_reb, turn_per, made3p, percent3p)
+varImpPlot(forest_stuff$model)
+print(forest_stuff$prediction)
 ```
+Don't really need to do CV since randomForest already partitions randomly
 
->Supposed to be on the time-series notebook
 ```{r}
-gsw_made <- ts(made3p$GSW, start=1980)
-plot.ts(gsw_made)
-gsw_percent <- ts(percent3p$GSW, start=1980)
-plot.ts(gsw_percent)
+require(ggplot2)
+rf <- forest_stuff$model
+imp = data.frame(type=rownames(imp), importance(rf), check.names=F)
+imp$type = reorder(imp$type, imp$`%IncMSE`)
+ggplot(data=imp, aes(x=type, y=`%IncMSE`)) + geom_bar(stat='identity') + geom_hline(yintercept=abs(min(imp$`%IncMSE`)), col=2, linetype='dashed') + coord_flip()
 ```

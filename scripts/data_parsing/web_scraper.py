@@ -3,7 +3,7 @@
 # @Date:   2016-12-05T01:10:26-05:00
 # @Filename: web_scraper.py
 # @Last modified by:   dileep
-# @Last modified time: December 11, 2016 11:55:15 PM
+# @Last modified time: December 13, 2016 10:13:34 PM
 
 """Script to scrape/parse www.basketball-reference.com
     Types of data we wish to get:
@@ -109,7 +109,6 @@ def pergame_parser(html_data, id_val, year):
         temp_table = pd.DataFrame(data, columns=header[1:])
         table_list.append(temp_table)
     table = pd.concat(table_list).dropna(how='all')
-    print(table.head(n=50))
     # table.to_csv(id_val+str(year)+'.csv', sep=',', index=False)
     return table
 
@@ -176,7 +175,11 @@ def webpage_parser(html_data, page_type, year, data_dir):
         shooting_data.to_csv(shooting_data_file, sep=',', index=False)
         data_dict['summary'] = [win_data, team_data, opponent_data, misc_data, shooting_data]
     if page_type == 'per_game':
+        if not os.path.exists(type_dir):
+            call('mkdir -p ' + type_dir, shell=True)
         player_data = pergame_parser(html_soup, 'all_per_game_stats', year)
+        player_data_file = type_dir + 'player_data_' + str(year) + '.csv'
+        player_data.to_csv(player_data_file, sep=',', index=False)
         data_dict['per_game'] = [player_data]
     return data_dict
 
@@ -184,7 +187,7 @@ def main(out_dir):
     website = 'http://www.basketball-reference.com/'
     year_range = list(range(1977,2017))
     # Types: summary/leaders/per_game/totals/per_minute/per_poss/advanced
-    type_of_data = 'summary' #currently support summary and per_game
+    type_of_data = 'per_game' #currently support summary and per_game
     html_data_list = get_weblinks(website, type_of_data, year_range)
     for ind, html_data in enumerate(html_data_list):
         print(year_range[ind],'\r')

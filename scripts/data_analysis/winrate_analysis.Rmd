@@ -1,6 +1,8 @@
 ---
 title: "Three pointer win-rate analysis"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
 ```{r, echo=FALSE, message=FALSE}
@@ -84,6 +86,11 @@ summary(model)
 AIC(model)
 ```
 
+
+
+ANNOVA
+
+
 *Random forest*
 ```{r}
 #set.seed(415)
@@ -150,6 +157,7 @@ Don't really need to do CV since randomForest already partitions randomly
 ```{r}
 require(ggplot2)
 rf <- forest_stuff$model
+imp <- importance(rf)
 imp = data.frame(type=rownames(imp), importance(rf), check.names=F)
 imp$type = reorder(imp$type, imp$`%IncMSE`)
 ggplot(data=imp, aes(x=type, y=`%IncMSE`)) + geom_bar(stat='identity') + geom_hline(yintercept=abs(min(imp$`%IncMSE`)), col=2, linetype='dashed') + coord_flip()

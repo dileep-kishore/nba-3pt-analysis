@@ -1,6 +1,8 @@
 ---
 title: "Three pointer time-series analysis"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
 ```{r, echo=FALSE, message=FALSE}
@@ -26,51 +28,46 @@ threep_made <- subset(threep_made_org, select=-c(X))
 *Plotting the mean* Long term trend or fad?
 ```{r}
 avg_threep_per <- rowMeans(threep_per, na.rm=TRUE)
-par(mfrow=c(1,3))
-plot(year_range, avg_threep_per, type='b', lty=1)
-abline(0.33,0, col="red", lty=2)
 avg_threep_attempt <- rowMeans(threep_attempt, na.rm=TRUE)
-plot(year_range, avg_threep_attempt, type='b', lty=1)
-avg_threep_made <- rowMeans(threep_made, na.rm=TRUE)
-plot(year_range, avg_threep_made, type='b', lty=1)
+means_df <- data.frame('Average 3-pointer percentage'=avg_threep_per, 'Average 3-pointer attempts'=avg_threep_attempt, 'Year'=year_range)
+plot1 <- ggplot(data=means_df, aes(Year, Average.3.pointer.percentage)) + geom_line(linetype=2) + geom_point(shape=21, fill="white") + geom_hline(yintercept=0.33, col="red", linetype=3) + ggtitle('3-pointer percentage')
+plot2 <- ggplot(data=means_df, aes(Year, Average.3.pointer.attempts)) + geom_line(linetype=2) + geom_point(shape=21, fill="white") + ggtitle('3-pointer attempts')
+grid.arrange(plot1, plot2, ncol=2)
 ```
 After crossing 0.33 percent it has largely saturated. Plot 2-pointers too
 
 The golden state warrior outlier
 ```{r}
-par(mfrow=c(1,2))
+require(gridExtra)
 y1 = as.numeric(threep_per[37,])
 y2 = as.numeric(threep_per[27,])
-hist(y1, freq=FALSE)
-lines(density(y1, from = 0, to = max(y1)), col="red")
-hist(y2, freq = FALSE)
-lines(density(y2, from = 0, to = max(y2)), col="red")
-par(mfrow=c(1,2))
-boxplot(y1)
-boxplot(y2)
-par(mfrow=c(1,2))
-qqnorm((y1-mean(y1))/sd(y1))
-abline(0,1, col="red")
-qqnorm((y2-mean(y2))/sd(y2))
-abline(0,1, col="red")
+df1 <- data.frame('Season 2016'=y1, 'Season 2006'=y2)
+plot1 <- ggplot(data = df1, aes(Season.2016)) + geom_histogram(aes(y=..density..), col="black", fill="grey", bins=6) + geom_density(col="red", lty=2) + ggtitle('Season 2016') + labs(x="3-pointer percentage")
+plot2 <- ggplot(data = df1, aes(Season.2006)) + geom_histogram(aes(y=..density..), col="black", fill="grey", bins=8) + geom_density(col="red", lty=2) + ggtitle('Season 2006') + labs(x="3-pointer percentage")
+grid.arrange(plot2, plot1, ncol=2)
+df2 <- melt(df1, variable_name = 'Season')
+ggplot(data = df2, aes(x=Season, y=value, fill=Season)) + geom_boxplot(outlier.colour = "red", outlier.shape = 2, notch = TRUE) + ggtitle('Box plot of 3-pointer percentage') + labs(x='Season', y='3-pointer percentage')
+# par(mfrow=c(1,2))
+# qqnorm((y1-mean(y1))/sd(y1))
+# abline(0,1, col="red")
+# qqnorm((y2-mean(y2))/sd(y2))
+# abline(0,1, col="red")
 ```
 But they don't have as much as big difference in attempts
 ```{r}
-par(mfrow=c(1,2))
 x1 = as.numeric(threep_attempt[37,])
 x2 = as.numeric(threep_attempt[27,])
-hist(x1, freq=FALSE)
-lines(density(x1, from = 0, to = max(x1)), col="red")
-hist(x2, freq = FALSE)
-lines(density(x2, from = 0, to = max(x2)), col="red")
-par(mfrow=c(1,2))
-boxplot(x1)
-boxplot(x2)
-par(mfrow=c(1,2))
-qqnorm((x1-mean(x1))/sd(x1))
-abline(0,1, col="red")
-qqnorm((x2-mean(x2))/sd(x2))
-abline(0,1, col="red")
+df1 <- data.frame('Season 2016'=x1, 'Season 2006'=x2)
+plot1 <- ggplot(data = df1, aes(Season.2016)) + geom_histogram(aes(y=..density..), col="black", fill="grey", bins=9) + geom_density(col="red", lty=2) + ggtitle('Season 2016') + labs(x="3-pointer attempts")
+plot2 <- ggplot(data = df1, aes(Season.2006)) + geom_histogram(aes(y=..density..), col="black", fill="grey", bins=9) + geom_density(col="red", lty=2) + ggtitle('Season 2006') + labs(x="3-pointer attempts")
+grid.arrange(plot2, plot1, ncol=2)
+df2 <- melt(df1, variable_name = 'Season')
+ggplot(data = df2, aes(x=Season, y=value, fill=Season)) + geom_boxplot(outlier.colour = "red", outlier.shape = 2, notch = TRUE) + ggtitle('Box plot of 3-pointer attempts') + labs(x='Season', y='3-pointer attempts')
+# par(mfrow=c(1,2))
+# qqnorm((x1-mean(x1))/sd(x1))
+# abline(0,1, col="red")
+# qqnorm((x2-mean(x2))/sd(x2))
+# abline(0,1, col="red")
 ```
 
 *Plotting per team per year data*
@@ -104,8 +101,14 @@ threep_anal <- function(fname, ind)
 
 threep_per_smooth <- threep_anal('../../results/team_data/comb_3pper.csv', 1)
 threep_attempt_smooth <- threep_anal('../../results/team_data/comb_3pattempt.csv', 2)
-ggplot(threep_per_smooth, aes(X,value)) + geom_line(aes(colour = teams))
-ggplot(threep_attempt_smooth, aes(X,value)) + geom_line(aes(colour = teams))
+par(mfrow=c(1,2))
+df1 <- melt(threep_per_org, id.vars='X', variable_name = 'teams')
+ggplot(df1, aes(X,value)) + geom_line(aes(colour = teams)) + ggtitle('Unsmoothened data') + labs(x='year', y='3-pointer percentage')
+ggplot(threep_per_smooth, aes(X,value)) + geom_line(aes(colour = teams)) + ggtitle('Smoothened data') + labs(x='year', y='3-pointer percentage')
+par(mfrow=c(1,2))
+df2 <- melt(threep_attempt_org, id.vars='X', variable_name = 'teams')
+ggplot(df2, aes(X,value)) + geom_line(aes(colour = teams)) + ggtitle('Unsmoothened data') + labs(x='year', y='3-pointer attempts')
+ggplot(threep_attempt_smooth, aes(X,value)) + geom_line(aes(colour = teams)) + ggtitle('Smoothened data') + labs(x='year', y='3-pointer attempts')
 ```
 
 *Looking at statistical significance*
@@ -127,25 +130,38 @@ t.test(x1,x3)
 *Time series analysis*
 HoltWinters predictions
 ```{r}
+avg_threep_per[16:18] <- c(NA, NA, NA)
+avg_threep_per <- na.approx(avg_threep_per)
 per_ts <- ts(avg_threep_per, start=head(year_range,n=1))
-plot.ts(per_ts)
-made_ts <- ts(avg_threep_made, start=head(year_range,n=1))
-plot.ts(made_ts)
+avg_threep_attempt[16:18] <- c(NA, NA, NA)
+avg_threep_attempt <- na.approx(avg_threep_attempt)
+attempt_ts <- ts(avg_threep_attempt, start=head(year_range,n=1))
+ts_df <- data.frame(Year=year_range, percentage=avg_threep_per, attempts=avg_threep_attempt)
+plot1 <- ggplot(data=ts_df, aes(x=Year, y=percentage)) + geom_line() + ggtitle('3-pointer percentage') + labs(x="Year", y="3-pointer percentage") + geom_smooth(col="red", lty=2)
+plot2 <- ggplot(data=ts_df, aes(x=Year, y=attempts)) + geom_line() + ggtitle('3-pointer attempts') + labs(x="Year", y="3-pointer attempts") + geom_smooth(col="red", lty=2)
+grid.arrange(plot1, plot2, ncol=2)
 ```
 gamma=False means non-seasonal
 ```{r}
 par(mfrow=c(1,2))
 per_forecasts <- HoltWinters(per_ts, gamma=FALSE)
-plot(per_forecasts)
+plot(per_forecasts, xlab="Year", ylab="3-pointer percentage")
 per_forecasts$SSE
 per_future <- forecast.HoltWinters(per_forecasts, h=5)
-made_forecasts <- HoltWinters(made_ts, gamma=FALSE)
-plot(made_forecasts)
-made_forecasts$SSE
-made_future <- forecast.HoltWinters(made_forecasts, h=5)
-plot.forecast(per_future)
-plot.forecast(made_future)
+attempt_forecasts <- HoltWinters(attempt_ts, gamma=FALSE)
+plot(attempt_forecasts, xlab="Year", ylab="3-pointer attempts")
+attempt_forecasts$SSE
+attempt_future <- forecast.HoltWinters(attempt_forecasts, h=5)
+plot.forecast(per_future, xlab="Year", ylab="3-pointer percentage")
+plot.forecast(attempt_future, xlab="Year", ylab="3-pointer attempts")
 ```
+```{r}
+tsdisplay(diff(per_ts), main="diff 3-pointer percentage", xlab="Year", ylab="percentage")
+tsdisplay(diff(attempt_ts), main="diff 3-pointer attempts", xlab="Year", ylab="attempts")
+# plot(diff(per_ts))
+# plot(diff(attempt_ts))
+```
+The first order differences look largely stationary. This and the auto.arima giving 0,1,0 implies that the trend is mostly a random walk.
 
 Arima models
 ```{r}
@@ -153,18 +169,14 @@ par(mfrow=c(1,2))
 acf(per_ts)
 pacf(per_ts)
 per_fit <- auto.arima(per_ts, seasonal = FALSE)
-acf(made_ts)
-pacf(made_ts)
-made_fit <- auto.arima(made_ts, seasonal = FALSE)
-plot(forecast(per_fit, h=5))
-plot(forecast(made_fit, h=5))
+acf(attempt_ts)
+pacf(attempt_ts)
+attempt_fit <- auto.arima(attempt_ts, seasonal = FALSE)
+par(mfrow=c(1,2))
+plot(forecast(per_fit, h=5), main="Forecasts from ARIMA", xlab="Year", ylab="3-pointer percentage")
+plot(forecast(attempt_fit, h=5), main="Forecasts from ARIMA", xlab="Year", ylab="3-pointer attempts")
 ```
 ARIMA stands for Autoregressive Integrated Moving Average models. Univariate (single vector) ARIMA is a forecasting technique that projects the future values of a series based entirely on its own inertia. Its main application is in the area of short term forecasting requiring at least 40 historical data points. It works best when your data exhibits a stable or consistent pattern over time with a minimum amount of outliers. Sometimes called Box-Jenkins (after the original authors), ARIMA is usually superior to exponential smoothing techniques when the data is reasonably long and the correlation between past observations is stable. If the data is short or highly volatile, then some smoothing method may perform better. If you do not have at least 38 data points, you should consider some other method than ARIMA.
 
-```{r}
-plot(diff(per_ts))
-plot(diff(made_ts))
-```
-The first order differences look largely stationary. This and the auto.arima giving 0,1,0 implies that the trend is mostly a random walk.
 
 From all these analyses we can say that 3-pointer shooting is not a fad due to one team but rather a long term trend that one team just capitalized on because they excelled at it.

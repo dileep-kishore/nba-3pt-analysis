@@ -187,7 +187,7 @@ def main(out_dir):
     website = 'http://www.basketball-reference.com/'
     year_range = list(range(1977,2017))
     # Types: summary/leaders/per_game/totals/per_minute/per_poss/advanced
-    type_of_data = 'per_game' #currently support summary and per_game
+    type_of_data = 'summary' #currently support summary and per_game
     html_data_list = get_weblinks(website, type_of_data, year_range)
     for ind, html_data in enumerate(html_data_list):
         print(year_range[ind],'\r')

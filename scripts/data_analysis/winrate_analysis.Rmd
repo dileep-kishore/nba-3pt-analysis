@@ -6,38 +6,40 @@ output:
 ---
 
 ```{r, echo=FALSE, message=FALSE}
+library(ggplot2)
 library(randomForest)
+library(lattice)
+library(gridExtra)
+library(DAAG)
 ```
 *Winrate*
 ```{r}
-winrate <- read.csv('../../results/win_data/comb_winrate.csv')
-year_range <- winrate$X
-winrate <- subset(winrate, select=-c(X))
-summary(winrate)
+winrate_org <- read.csv('../../results/win_data/comb_winrate.csv')
+year_range_org <- winrate_org$X
+winrate <- subset(winrate_org, select=-c(X))
+winrate <- winrate[2:nrow(winrate),]
 ```
 
 *Threepointer percentage data*
 ```{r}
-percent3p <- read.csv('../../results/team_data/comb_3pper.csv')
+percent3p_org <- read.csv('../../results/team_data/comb_3pper.csv')
+percent3p <- percent3p_org[2:nrow(percent3p_org),]
 year_range <- percent3p$X
 percent3p <- subset(percent3p, select=-c(X))
-summary(percent3p)
 ```
 
 *Threepointer attempts data*
 ```{r}
-attempts3p <- read.csv('../../results/team_data/comb_3pattempt.csv')
-year_range <- attempts3p$X
-attempts3p <- subset(attempts3p, select=-c(X))
-summary(attempts3p)
+attempts3p_org <- read.csv('../../results/team_data/comb_3pattempt.csv')
+attempts3p <- subset(attempts3p_org, select=-c(X))
+attempts3p <- attempts3p[2:nrow(attempts3p),]
 ```
 
 *Threepointer made data*
 ```{r}
-made3p <- read.csv('../../results/team_data/comb_3pmade.csv')
-year_range <- made3p$X
-made3p <- subset(made3p, select=-c(X))
-summary(made3p)
+made3p_org <- read.csv('../../results/team_data/comb_3pmade.csv')
+made3p <- subset(made3p_org, select=-c(X))
+made3p <- made3p[2:nrow(made3p),]
 ```
 
 *Misc data*
@@ -55,35 +57,48 @@ turn_per <- subset(turn_per, select=-c(X))
 
 *Correlation between winrate and threepoint percentage in the last decades*
 ```{r}
-get_lmmodel <- function(start_yr, end_yr, ind_var1, ind_var2, ind_var3, ind_var4)
+ind_vars <- list("winrate"=winrate, "ft_per_fg"=ft_per_fg, "eff_fg_per"=eff_fg_per, "off_reb"=off_reb, "turn_per"=turn_per, "percent3p"=percent3p, "made3p"=made3p, "attempts3p"=attempts3p)
+start_yr <- 2011
+end_yr <- 2016
+lm_df <- data.frame(Year=rep(seq(start_yr, end_yr),30))
+team_names <- colnames(ind_vars$winrate)
+for (feat_name in names(ind_vars))
 {
-    winrate.list <- c()
-    indvar1.list <- c()
-    indvar2.list <- c()
-    indvar3.list <- c()
-    indvar4.list <- c()
-    xx.list <- setNames(split(ind_var1, seq(nrow(ind_var1))), year_range)
-    yy.list <- setNames(split(ind_var2, seq(nrow(ind_var2))), year_range)
-    aa.list <- setNames(split(ind_var3, seq(nrow(ind_var3))), year_range)
-    bb.list <- setNames(split(ind_var4, seq(nrow(ind_var4))), year_range)
-    yz.list <- setNames(split(winrate, seq(nrow(winrate))), year_range)
-    # Change the year range to get models for different time ranges
-    yrs <- seq(match(start_yr, year_range), match(end_yr, year_range))
-    for (yr_ind in yrs)
+  temp <- c()
+  curr_feat <- ind_vars[[feat_name]]
+  yrs <- seq(match(start_yr, year_range), match(end_yr, year_range))
+  for (yr_ind in yrs)
+  {
+    for (curr_team in team_names)
     {
-        indvar1.list <- c(indvar1.list, as.numeric(xx.list[[yr_ind]]))
-        indvar2.list <- c(indvar2.list, as.numeric(yy.list[[yr_ind]]))
-        indvar3.list <- c(indvar3.list, as.numeric(aa.list[[yr_ind]]))
-        indvar4.list <- c(indvar4.list, as.numeric(bb.list[[yr_ind]]))
-        winrate.list <- c(winrate.list, as.numeric(yz.list[[yr_ind]]))
+      temp <- c(temp, curr_feat[[curr_team]][yr_ind])
     }
-    # Check if these are in order
-    # model <- lm(winrate.list ~ indvar1.list*indvar2.list)
-    model <- lm(winrate.list ~ indvar1.list+indvar2.list+indvar3.list+indvar4.list)
+  }
+  lm_df[feat_name] <- temp
 }
-model <- get_lmmodel(2005, 2016, ft_per_fg, eff_fg_per, off_reb, turn_per)
-summary(model)
-AIC(model)
+xyplot(winrate ~ percent3p, data=lm_df, type=c("p","r"), groups=Year, auto.key=list(space="right", rows=length(unique(lm_df$Year)), title="Year"))
+plot1 <- ggplot(data=lm_df, aes(x=percent3p, y=winrate, color=as.factor(Year), guide_legend(title = "Year"))) + geom_point(aes(group=Year), shape=21) + geom_smooth(aes(group=as.factor(Year)), method='lm', se=FALSE, inherit.aes = TRUE, lwd=0.5) + scale_color_discrete(name="Year") + ggtitle('Winrate vs. 3-pointer percentage')
+plot2 <- ggplot(data=lm_df, aes(x=made3p, y=winrate, color=as.factor(Year), guide_legend(title = "Year"))) + geom_point(aes(group=Year), shape=21) + geom_smooth(aes(group=as.factor(Year)), method='lm', se=FALSE, inherit.aes = TRUE, lwd=0.5) + scale_color_discrete(name="Year") + ggtitle('Winrate vs. 3-pointer makes')
+plot3 <- ggplot(data=lm_df, aes(x=attempts3p, y=winrate, color=as.factor(Year), guide_legend(title = "Year"))) + geom_point(aes(group=Year), shape=21) + geom_smooth(aes(group=as.factor(Year)), method='lm', se=FALSE, inherit.aes = TRUE, lwd=0.5) + scale_color_discrete(name="Year") + ggtitle('Winrate vs. 3-pointer attempts')
+grid.arrange(plot1, plot2, plot3, ncol=2)
+```
+```{r}
+model1 <- lm(winrate ~ percent3p, data=lm_df)
+plot(fitted(model1), residuals(model1))
+model2 <- lm(winrate ~ percent3p*made3p, data=lm_df) # Colinearity remove
+model3 <- lm(winrate ~ percent3p*made3p*attempts3p, data=lm_df)
+# summary(model1)
+# summary(model2)
+# summary(model3)
+# anova(model1, model2, model3)
+model4 <- lm(winrate ~ eff_fg_per+ft_per_fg+off_reb+turn_per, data=lm_df)
+summary(model4)
+model5 <- lm(winrate ~ ft_per_fg+off_reb+turn_per+percent3p, data=lm_df)
+#cv.lm(model4, m=3, data = lm_df)
+summary(model4)
+par(mfrow=c(2,2))
+plot(model4)
+anova(model1, model4, model5)
 ```
 
 
@@ -156,9 +171,9 @@ Don't really need to do CV since randomForest already partitions randomly
 
 ```{r}
 require(ggplot2)
-rf <- forest_stuff$model
+rf <- randomForest(winrate ~ eff_fg_per+ft_per_fg+off_reb+turn_per+percent3p+made3p+attempts3p, data=lm_df, importance=TRUE, ntree=1000)
 imp <- importance(rf)
 imp = data.frame(type=rownames(imp), importance(rf), check.names=F)
 imp$type = reorder(imp$type, imp$`%IncMSE`)
-ggplot(data=imp, aes(x=type, y=`%IncMSE`)) + geom_bar(stat='identity') + geom_hline(yintercept=abs(min(imp$`%IncMSE`)), col=2, linetype='dashed') + coord_flip()
+ggplot(data=imp, aes(x=type, y=`%IncMSE`)) + geom_bar(stat='identity', fill='black') + geom_hline(yintercept=abs(min(imp$`%IncMSE`)), col=2, linetype='dashed') + coord_flip()
 ```

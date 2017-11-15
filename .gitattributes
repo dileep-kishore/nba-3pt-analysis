@@ -1,3 +1,4 @@
 *.html linguist-documentation
 *.pdf linguist-documentation
 *.png linguist-documentation
+*.eps linguist-generated
